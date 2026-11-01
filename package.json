@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "husky"
   },
   "dependencies": {
     "react": "^19.3.1",
@@ -22,7 +23,9 @@
     "eslint": "^10.14.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "^17.13.0",
+    "husky": "^9.1.7",
     "oxlint": "^1.88.0",
+    "prettier": "^3.9.10",
     "vite": "^8.3.4"
   }
 }
