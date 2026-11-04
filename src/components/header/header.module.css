@@ -1,0 +1,20 @@
+.text {
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 300;
+  font-size: 24px;
+  color: #61BB61;
+  margin-left: 240px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 200px;
+  margin-top: 10px;
+}
+.leftText {
+  font-family: "SourceSans Pro", monospace;
+  font-weight: 400;
+  margin-right: 240px;
+  color: #333333;
+}
