@@ -1,0 +1,19 @@
+.pagination {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  margin-left: 400px;
+}
+.pagination button {
+  width: 41px;
+  height: 44px;
+  border: #61bb61 1px solid;
+  cursor: pointer;
+  background: none;
+}
+.pagination button + button {
+  border-left: none;
+}
+.pagination .active {
+  background-color: #61bb61;
+}

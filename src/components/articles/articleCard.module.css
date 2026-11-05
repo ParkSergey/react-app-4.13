@@ -1,0 +1,34 @@
+.articleCard {
+  width: 800px;
+  height: 278px;
+  background-color: #FFFFFF;
+  border-radius: 4px;
+  border: 1px solid #AAAAAA;
+  margin-top: 16px;
+  margin-left: 130px;
+  overflow: hidden;
+}
+
+.image {
+  display: block;
+  width: 124px;
+  height: 36px;
+  object-fit: cover;
+}
+.text{
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+  color: #333333;
+margin-right: 600px;
+margin-left: 20px;
+}
+.description {
+  font-family: 'SourceSans Pro', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: #AAAAAA;
+  margin-right: 600px;
+margin-left: 20px;
+margin-top: 16px;;
+}
