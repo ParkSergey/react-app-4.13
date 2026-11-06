@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import ArticleCard from './ArticleCard';
 
-
 function ArticleList() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,11 +13,10 @@ function ArticleList() {
         return res.json();
       })
       .then((data) => setArticles(data.articles))
-      .catch((err) => setError(err.message)
-        .finally(() => setLoading(false)));
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
   }, []);
-  if ((loading))
-    return <p>loading...</p>;
+  if (loading) return <p>loading...</p>;
   if (error) {
     return <p>mistake:{error}</p>;
   }

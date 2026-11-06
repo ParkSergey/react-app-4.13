@@ -1,5 +1,5 @@
 import styles from './UserInfo.module.css';
-import image from '../../images/icon.svg'
+import image from '../../assets/images/Icon.svg'
 function UserInfo() {
   return (
     <div className={styles.userInfo}>
