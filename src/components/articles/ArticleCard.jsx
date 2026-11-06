@@ -1,12 +1,15 @@
 import styles from './articleCard.module.css'
-import image from '../../images/UserInfo.svg'
+import UserInfo from '../UserInfo/UserInfo.jsx'
 
-export default function ArticleCard() {
+export default function ArticleCard({ article }) {
   return (
     <div className={styles.articleCard}>
-      <img className={styles.image} src={image} alt="user info" />
-      <p className={styles.text}>This is text</p>
+      <div className={styles.user}>
+        <UserInfo />
+      </div>
+
+      <p className={styles.text}>{article.title}</p>
       <p className={styles.description}>This is text</p>
     </div>
-  )
+  );
 }
