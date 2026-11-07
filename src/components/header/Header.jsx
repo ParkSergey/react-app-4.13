@@ -1,14 +1,19 @@
 import styles from './header.module.css';
 
+import { Link } from 'react-router-dom';
+
 function Header() {
   return (
-    <>
+    
       <header className={styles.header}>
         <div className={styles.text}>Realworld Blog</div>
-        <div className={styles.leftText}>Home sign In sign Up</div>
-      </header>
-      <div className={styles.greenBanner}></div>
-    </>
+        <nav className={styles.url}>
+          <Link to="/">Home</Link>
+       <Link to="/sign-in">Sign In</Link>  
+        <Link to="/sign-up">sign Up</Link>
+        </nav>
+        </header>
+      
   );
 }
 export default Header;

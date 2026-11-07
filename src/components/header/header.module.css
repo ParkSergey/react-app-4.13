@@ -3,7 +3,7 @@
   font-weight: 700;
   font-size: 24px;
   color: #61BB61;
-  margin-left: 250px;
+  margin-left: 130px;
 }
 .header {
   display: flex;
@@ -18,4 +18,9 @@
   margin-right: 240px;
   color: #333333;
   
+}
+.url {
+  display: flex;
+  gap: 12px;
+  margin-right: 200px;
 }

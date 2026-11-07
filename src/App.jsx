@@ -13,7 +13,7 @@ export default function App() {
       <Banner />
       <Sidebar />
       <ArticleList />
-      <Pagination />
+
     </>
   );
 }

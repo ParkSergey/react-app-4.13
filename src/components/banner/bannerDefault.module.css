@@ -10,6 +10,9 @@
   font-size: 56px;
   color: #FFFFFF;
   margin-top: 48px;
+  text-decoration: underline;
+  text-decoration-color: #FFFFFF;
+  text-decoration-skip-ink: none;
 }
 .subtitle {
   font-family: "SourceSans Pro", sans-serif;
