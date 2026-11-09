@@ -6,8 +6,9 @@ display: flex;
 align-items: center;
 }
 .image {
-  height: 24px;
-  width: 24px;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
 }
 .userInfo span {
   border: none;

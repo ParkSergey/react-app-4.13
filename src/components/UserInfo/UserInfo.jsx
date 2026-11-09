@@ -5,7 +5,12 @@ function UserInfo({ author, date }) {
     <div className={styles.userInfo}>
       <img className={styles.image}
         src={author.image || image}
-        alt={author.username} />
+        alt={author.username}
+        onError={(e) => {
+          e.currentTarget.onerror = null;
+          e.currentTarget.src = image;
+        }}
+      />
       <div className={styles.text}>
         <span className={styles.semiBold}>{author.username}</span>
         <span className={styles.regular}>{new Date(date).toLocaleDateString('en-GB', {

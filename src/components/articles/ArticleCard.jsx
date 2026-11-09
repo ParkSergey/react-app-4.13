@@ -11,8 +11,8 @@ export default function ArticleCard({ article }) {
           date={article.createdAt} />
       </div>
 
-      <p className={styles.text}>{article.title}</p>
-      <p className={styles.description}>This is text</p>
+      <p className={styles.text}>{article.description}</p>
+      <p className={styles.description}>{article.body}</p>
     </div>
   );
 }
