@@ -13,7 +13,6 @@ function Header() {
         <Link to="/sign-up">Sign Up</Link>
         </nav>
         </header>
-      
   );
 }
 export default Header;
