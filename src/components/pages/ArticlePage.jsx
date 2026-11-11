@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import Markdown from 'react-markdown';
-import { useParams, Link } from 'react-router'
+import { useParams, Link } from 'react-router';
 import UserInfo from '../UserInfo/UserInfo';
+import ArticleHeader from '../header/ArticleHeader';
+import styles from '../pages/ArticlePage.module.css';
 function ArticlePage() {
   const { slug } = useParams();
   const [article, setArticle] = useState(null);
@@ -10,35 +12,29 @@ function ArticlePage() {
 
   useEffect(() => {
     const controller = new AbortController();
-    setLoading(true);
-    setError(null);
-
-    fetch(`https://realworld.habsida.net/api/articles/${slug}`,
-      {
-        signal: controller.signal,
-      })
+    fetch(`https://realworld.habsida.net/api/articles/${slug}`, {
+      signal: controller.signal,
+    })
       .then((res) => {
-        if (!res.ok) throw new Error("mistake " + res.status);
-        return res.json()
+        if (!res.ok) throw new Error('mistake ' + res.status);
+        return res.json();
       })
       .then((data) => {
         setArticle(data.article);
       })
       .catch((err) => {
-        if (err.name !== 'AbortError')
-          setError(err.message);
+        if (err.name !== 'AbortError') setError(err.message);
       })
       .finally(() => {
         if (!controller.signal.aborted) setLoading(false);
       });
-      return () => controller.abort();
-    }, [slug]);
+    return () => controller.abort();
+  }, [slug]);
   return (
     <>
-      <Link to='/articles'>to article list</Link>
-
+      <ArticleHeader />
       {loading && <p>loading...</p>}
-      error && <p>mistake: {error}</p>
+      {error && <p>mistake: {error}</p>}
       {article && !loading && !error && (
         <article>
           <h1>{article.slug}</h1>
@@ -56,6 +52,5 @@ function ArticlePage() {
       )}
     </>
   );
-  
 }
-export default ArticlePage
+export default ArticlePage;
