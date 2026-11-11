@@ -1,6 +1,6 @@
 import styles from './header.module.css';
 
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 function Header() {
   const nav = ['Home', 'Sign In', 'Sign Up'];
   return (

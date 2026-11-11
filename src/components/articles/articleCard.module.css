@@ -18,12 +18,13 @@
 .text{
   text-align: start;
   width: 760px;
-  font-family: 'Titillium Web', sans-serif;
-  font-weight: 600;
-  font-size: 32px;
-  color: #333333;
+  font-family: 'SoerceSans Pro', sans-serif;
+  font-weight: 200;
+  font-size: 16px;
+  color: #AAAAAA;
 margin-right: 600px;
 margin-left: 20px;
+text-decoration: none;
 }
 .description {
   text-align: start;
@@ -40,4 +41,7 @@ margin-top: 16px;;
   margin-top: 18px;
 margin-left: 20px;
 margin-bottom: 18px;
+}
+.link {
+  text-decoration: none;
 }
