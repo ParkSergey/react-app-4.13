@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import Markdown from 'react-markdown';
-import { useParams, Link } from 'react-router';
+import { useParams } from 'react-router';
 import UserInfo from '../UserInfo/UserInfo';
 import ArticleHeader from '../header/ArticleHeader';
 import styles from '../pages/ArticlePage.module.css';
+
 function ArticlePage() {
   const { slug } = useParams();
   const [article, setArticle] = useState(null);
@@ -30,27 +31,51 @@ function ArticlePage() {
       });
     return () => controller.abort();
   }, [slug]);
+
   return (
     <>
-      <ArticleHeader />
+      <ArticleHeader author={article?.author} />
       {loading && <p>loading...</p>}
       {error && <p>mistake: {error}</p>}
       {article && !loading && !error && (
-        <article>
-          <h1>{article.slug}</h1>
-          <div>
+        <>
+          <article className={styles.title}>
+            <h1 className={styles.article}>{article.slug}</h1>
+            <div className={styles.author}>
+              <UserInfo
+                author={article.author}
+                image={article.author.image}
+                date={article.createdAt}
+              />
+            </div>
+          </article>
+          <div className={styles.body}>
+            <Markdown>{article.body}</Markdown>
+          </div>
+          <div className={styles.tags}>
+            <span>tag</span>
+            <span>tag</span>
+            <span>tag</span>
+            <span>tag</span>
+            <span>tag</span>
+            <span>tag</span>
+            <span>tag</span>
+            <span>tag</span>
+            <span>tag</span>
+          </div>
+          <div className={styles.userinfo}>
             <UserInfo
               author={article.author}
               image={article.author.image}
               date={article.createdAt}
             />
+
+            <button className={styles.button}>Favorite article</button>
           </div>
-          <Markdown>
-            {article.body}
-          </Markdown>
-        </article>
+        </>
       )}
     </>
   );
 }
+
 export default ArticlePage;

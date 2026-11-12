@@ -19,7 +19,7 @@ margin-top: 30px;
   gap: 8px;
  
 }
-span{
+.tags span{
   font-family: 'SourceSans Pro', sans-serif;
    border: #AAAAAA 1px solid;
   border-radius: 10px;
