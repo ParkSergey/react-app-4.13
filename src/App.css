@@ -26,5 +26,9 @@
 
 body {
   font-family: 'Titillium Web', sans-serif;
-  margin-left: 200px;
+  margin: 0;
+}
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
 }

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Markdown from 'react-markdown';
 import { useParams } from 'react-router';
 import UserInfo from '../UserInfo/UserInfo';
-import ArticleHeader from '../header/ArticleHeader';
+import Header from '../header/Header.jsx';
 import styles from '../pages/ArticlePage.module.css';
 
 function ArticlePage() {
@@ -34,9 +34,13 @@ function ArticlePage() {
 
   return (
     <>
-      <ArticleHeader author={article?.author} />
+      <div className={styles.headerWrap}>
+        <Header />
+      </div>
+
       {loading && <p>loading...</p>}
       {error && <p>mistake: {error}</p>}
+
       {article && !loading && !error && (
         <>
           <article className={styles.title}>
@@ -49,27 +53,26 @@ function ArticlePage() {
               />
             </div>
           </article>
+
           <div className={styles.body}>
             <Markdown>{article.body}</Markdown>
           </div>
+
           <div className={styles.tags}>
-            <span>tag</span>
-            <span>tag</span>
-            <span>tag</span>
-            <span>tag</span>
-            <span>tag</span>
-            <span>tag</span>
-            <span>tag</span>
-            <span>tag</span>
-            <span>tag</span>
+            {(article.tagList.length
+              ? article.tagList
+              : Array(9).fill('tag')
+            ).map((tag, i) => (
+              <span key={i}>{tag}</span>
+            ))}
           </div>
+
           <div className={styles.userinfo}>
             <UserInfo
               author={article.author}
               image={article.author.image}
               date={article.createdAt}
             />
-
             <button className={styles.button}>Favorite article</button>
           </div>
         </>

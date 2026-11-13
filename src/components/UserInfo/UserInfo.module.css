@@ -4,6 +4,8 @@ width: fit-content;
 border: none;
 display: flex;
 align-items: center;
+gap: 10px;
+
 }
 .image {
   border-radius: 50%;
@@ -33,4 +35,5 @@ align-items: center;
   font-size: 12.8px;
   font-weight: 400;
   color: #AAAAAA;
+  margin-top: 5px;
 }
