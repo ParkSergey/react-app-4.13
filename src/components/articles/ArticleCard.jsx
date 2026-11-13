@@ -9,15 +9,28 @@ export default function ArticleCard({ article }) {
         <UserInfo
           author={article.author}
           image={article.image}
-          date={article.createdAt} />
+          date={article.createdAt}
+        />
       </div>
       <h2 className={styles.title}>
-        <Link className={styles.link} to={`/articles/${article.slug}`}>{article.slug}
+        <Link className={styles.link} to={`/articles/${article.slug}`}>
+          {article.slug}
         </Link>
       </h2>
 
       <p className={styles.text}>{article.body}</p>
       <p className={styles.description}>{article.body}</p>
+      <div className={styles.tags}>
+        <span>tag</span>
+        <span>tag</span>
+        <span>tag</span>
+        <span>tag</span>
+        <span>tag</span>
+        <span>tag</span>
+        <span>tag</span>
+        <span>tag</span>
+        <span>tag</span>
+      </div>
     </div>
   );
 }
