@@ -3,6 +3,7 @@
   display: flex;
   max-width: 100%;  
   overflow-x: auto; 
+  margin-top: 16px;
 }
 
 .pagination button {

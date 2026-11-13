@@ -3,8 +3,10 @@ import Markdown from 'react-markdown';
 import { useParams } from 'react-router';
 import UserInfo from '../UserInfo/UserInfo';
 import Header from '../header/Header.jsx';
+import loadingImage from '../../assets/images/loading.svg';
+import refresh from '../../assets/images/refresh.svg';
 import styles from '../pages/ArticlePage.module.css';
-
+import Tags from '../tags/Tags.jsx';
 function ArticlePage() {
   const { slug } = useParams();
   const [article, setArticle] = useState(null);
@@ -38,8 +40,13 @@ function ArticlePage() {
         <Header />
       </div>
 
-      {loading && <p>loading...</p>}
-      {error && <p>mistake: {error}</p>}
+      {loading && (
+        <p className="loadingIndicator" role="status">
+          <img className="loadingSpinner" src={refresh} alt="" />
+          <img src={loadingImage} alt="Loading article" />
+        </p>
+      )}
+      {error && <p>error: {error}</p>}
 
       {article && !loading && !error && (
         <>
@@ -58,14 +65,7 @@ function ArticlePage() {
             <Markdown>{article.body}</Markdown>
           </div>
 
-          <div className={styles.tags}>
-            {(article.tagList.length
-              ? article.tagList
-              : Array(9).fill('tag')
-            ).map((tag, i) => (
-              <span key={i}>{tag}</span>
-            ))}
-          </div>
+          <Tags tagList={article.tagList} />
 
           <div className={styles.userinfo}>
             <UserInfo

@@ -47,15 +47,16 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  width: 1280px;
+  width: 100%;
   height: 282px;
   background-color: #333333;
 }
 .body {
   color: #333333;
   text-align: start;
-  width: 100%;
+  max-width: 768px;
   margin-top: 34px;
+  margin-left: 280px;
 }
 .body > * {
   color: #333333;
@@ -72,22 +73,6 @@
 .body code {
   display: block;
   font-family: inherit;
-}
-.tags span {
-  font-family: 'SourceSans Pro', sans-serif;
-  border: #aaaaaa 1px solid;
-  border-radius: 10px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 16px;
-  padding-right: 16px;
-  margin-top: 30px;
-}
-.tags {
-  display: flex;
-  gap: 26px;
-  margin-left: 256px;
-  flex-wrap: wrap;
 }
 UserInfo {
   margin-top: 56px;
@@ -114,4 +99,7 @@ UserInfo {
 .author {
   margin-right: 480px;
   margin-top: 10px;
+}
+.headerWrap {
+margin-left: 150px ;
 }

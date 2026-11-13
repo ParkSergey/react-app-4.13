@@ -1,0 +1,29 @@
+.tags {
+  display: flex;
+  gap: 26px;
+  margin-left: 256px;
+  flex-wrap: wrap;
+}
+
+.compact {
+  gap: 10px;
+  margin: 16px 0 24px 20px;
+}
+
+.tags span {
+  color: #aaaaaa;
+  font-family: 'SourceSans Pro', sans-serif;
+  font-weight: 600;
+  border: #aaaaaa 1px solid;
+  border-radius: 10px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-top: 30px;
+}
+
+.compact span {
+  font-weight: 600;
+  margin-top: 0;
+}

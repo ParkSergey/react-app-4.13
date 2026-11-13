@@ -1,7 +1,7 @@
 import styles from './articleCard.module.css';
 import UserInfo from '../UserInfo/UserInfo.jsx';
 import { Link } from 'react-router';
-
+import Tags from '../tags/Tags.jsx';
 export default function ArticleCard({ article }) {
   return (
     <div className={styles.articleCard}>
@@ -18,17 +18,8 @@ export default function ArticleCard({ article }) {
         </Link>
       </h2>
 
-      <p className={styles.text}>{article.body}</p>
       <p className={styles.description}>{article.body}</p>
-     <div className={styles.tags}>
-                 {(article.tagList.length
-                   ? article.tagList
-                   : Array(9).fill('tag')
-                 ).map((tag, i) => (
-                   <span key={i}>{tag}</span>
-                 ))}
-               </div>
-     
+      <Tags tagList={article.tagList} compact />
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import ArticleCard from './ArticleCard';
 import Pagination from '../pagination/Pagination.jsx';
+import loadingImage from '../../assets/images/loading.svg';
+import refresh from '../../assets/images/refresh.svg';
 const LIMIT = 5;
 function ArticleList() {
   const [articles, setArticles] = useState([]);
@@ -35,8 +37,13 @@ function ArticleList() {
   const totalPages = Math.ceil(total / LIMIT)
   return (
     <>
-      {loading && <p>loading   </p>}
-      {error && <p>mistake: {error}</p>}
+      {loading && (
+        <p className="loadingIndicator" role="status">
+          <img className="loadingSpinner" src={refresh} alt="" />
+          <img src={loadingImage} alt="Loading articles" />
+        </p>
+      )}
+      {error && <p>error: {error}</p>}
       {!loading && !error &&
       
         articles.map((article) => (
