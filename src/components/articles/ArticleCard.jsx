@@ -20,17 +20,15 @@ export default function ArticleCard({ article }) {
 
       <p className={styles.text}>{article.body}</p>
       <p className={styles.description}>{article.body}</p>
-      <div className={styles.tags}>
-        <span>tag</span>
-        <span>tag</span>
-        <span>tag</span>
-        <span>tag</span>
-        <span>tag</span>
-        <span>tag</span>
-        <span>tag</span>
-        <span>tag</span>
-        <span>tag</span>
-      </div>
+     <div className={styles.tags}>
+                 {(article.tagList.length
+                   ? article.tagList
+                   : Array(9).fill('tag')
+                 ).map((tag, i) => (
+                   <span key={i}>{tag}</span>
+                 ))}
+               </div>
+     
     </div>
   );
 }
