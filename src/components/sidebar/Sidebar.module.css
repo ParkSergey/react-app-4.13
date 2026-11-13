@@ -28,3 +28,8 @@ margin-top: 30px;
   padding-left: 16px;
   padding-right: 16px;
 }
+.popular {
+  font-weight: 700;
+  font-size: 16px;
+  color:#333333
+}

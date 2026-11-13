@@ -43,5 +43,12 @@ margin-left: 20px;
 margin-bottom: 18px;
 }
 .link {
+  color:#0000EE;
   text-decoration: none;
+  margin-left:20px ;
+}
+.tags {
+margin-top: 30px;
+  display: flex;
+  gap: 8px;
 }
