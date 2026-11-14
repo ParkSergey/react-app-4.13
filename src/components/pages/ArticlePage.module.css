@@ -85,6 +85,7 @@ UserInfo {
   height: 60px;
   gap: 20px;
   margin-top: 46px;
+  margin-left: 200px;
 }
 .button {
   width: 112px;
@@ -97,9 +98,16 @@ UserInfo {
   color: #ffffff;
 }
 .author {
-  margin-right: 480px;
+  align-self: flex-start;
+  margin-left: 280px;
   margin-top: 10px;
 }
 .headerWrap {
-margin-left: 150px ;
+  margin-left: 150px;
+}
+.tags {
+  margin-left: 280px;
+}
+.tags > div {
+  margin-left: 0;
 }

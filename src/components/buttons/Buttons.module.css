@@ -1,0 +1,49 @@
+.button {
+  width: 112px;
+  height: 40px;
+  border-radius: 9px;
+  background-color: #61bb61;
+  font-family: 'SourceSans Pro', sans-serif;
+  font-weight: 400;
+  font-size: 12.8px;
+  color: #ffffff;
+}
+.like {
+  margin-right: 20px;
+  width: 90px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+.like img {
+  margin-left: 20px;
+  width: 16px;
+  height: 16px;
+}
+.buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  width: 129px;
+  height: 32px;
+}
+.green {
+  width: 54px;
+  height: 32px;
+  color: #61bb61;
+  font-family: 'SourceSans Pro', sans-serif;
+  font-weight: 400;
+  font-size: 12.8px;
+  border: 1px solid #61bb61;
+  border-radius: 10px;
+}
+.red {
+  font-family: 'SourceSans Pro', sans-serif;
+  font-weight: 400;
+  font-size: 12.8px;
+  width: 67px;
+  height: 32px;
+  color: #bb6161;
+  border: 1px solid #bb6161;
+  border-radius: 10px;
+}

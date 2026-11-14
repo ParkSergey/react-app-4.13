@@ -7,6 +7,8 @@ import loadingImage from '../../assets/images/loading.svg';
 import refresh from '../../assets/images/refresh.svg';
 import styles from '../pages/ArticlePage.module.css';
 import Tags from '../tags/Tags.jsx';
+import FavoriteArticle from '../buttons/FavoriteArticle.jsx';
+
 function ArticlePage() {
   const { slug } = useParams();
   const [article, setArticle] = useState(null);
@@ -64,8 +66,9 @@ function ArticlePage() {
           <div className={styles.body}>
             <Markdown>{article.body}</Markdown>
           </div>
-
-          <Tags tagList={article.tagList} />
+          <div className={styles.tags}>
+            <Tags tagList={article.tagList} />
+          </div>
 
           <div className={styles.userinfo}>
             <UserInfo
@@ -73,7 +76,7 @@ function ArticlePage() {
               image={article.author.image}
               date={article.createdAt}
             />
-            <button className={styles.button}>Favorite article</button>
+            <FavoriteArticle />
           </div>
         </>
       )}

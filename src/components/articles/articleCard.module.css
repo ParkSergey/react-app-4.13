@@ -36,6 +36,8 @@
   margin-top: 16px;
 }
 .user {
+  display: flex;
+  justify-content: space-between;
   margin-top: 18px;
   margin-left: 20px;
   margin-bottom: 18px;
