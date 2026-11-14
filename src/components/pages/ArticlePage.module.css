@@ -37,10 +37,12 @@
   border: none;
 }
 .article {
+  align-self: flex-start;
   font-family: 'Titillium Web', sans-serif;
   font-weight: 700;
   font-size: 46px;
   color: #ffffff;
+  margin-left: 280px;
 }
 .title {
   display: flex;
