@@ -64,7 +64,9 @@ function ArticlePage() {
           </article>
 
           <div className={styles.body}>
-            <Markdown>{article.body}</Markdown>
+            <Markdown>
+              {article.body.replace(/(^|\n\n)[ \t]+/g, '$1')}
+            </Markdown>
           </div>
           <div className={styles.tags}>
             <Tags tagList={article.tagList} />

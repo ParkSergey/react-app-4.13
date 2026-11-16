@@ -55,10 +55,14 @@
 }
 .body {
   color: #333333;
-  text-align: start;
-  max-width: 768px;
+  text-align: left;
+  max-width: 600px;
   margin-top: 34px;
   margin-left: 280px;
+}
+.body p {
+  text-align: left;
+  text-indent: 0;
 }
 .body > * {
   color: #333333;

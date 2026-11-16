@@ -20,7 +20,7 @@ export default function ArticleCard({ article }) {
         </Link>
       </h2>
 
-      <p className={styles.description}>{article.body}</p>
+      <p className={styles.description}>{article.description}</p>
       <Tags tagList={article.tagList} />
     </div>
   );
