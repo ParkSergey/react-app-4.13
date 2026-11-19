@@ -1,0 +1,116 @@
+.page {
+  display: flex;
+  justify-content: center;
+  padding: 48px 16px;
+}
+
+.card {
+  width: 100%;
+  max-width: 546px;
+  padding: 32px;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 8%);
+}
+
+.title {
+  font-family: 'Titillium Web', Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 46px;
+  color: #333333;
+  margin-bottom: 21px;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #262626;
+  font-family: 'SourceSans Pro', sans-serif;
+  font-size: 14px;
+}
+
+.field input {
+  width: 480px;
+  max-width: 100%;
+  min-height: 48px;
+  padding: 8px 12px;
+  color: #262626;
+  font: inherit;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+}
+
+.signUpForm .field input {
+  width: 480px;
+  height: 48px;
+}
+
+.field input::placeholder {
+  color: #bfbfbf;
+}
+
+.field input:focus {
+  border-color: #61bb61;
+  outline: 2px solid rgb(97 187 97 / 18%);
+}
+
+.submit {
+  align-self: flex-end;
+  width: 120px;
+  height: 43px;
+  margin-top: 8px;
+  padding: 8px 16px;
+  color: #fff;
+  font-family: 'SourceSans Pro', sans-serif;
+  font-weight: 400;
+  font-size: 18x;
+  background: #61BB61;
+  border: 1px solid #61BB61;
+  border-radius: 4px;
+}
+
+.submit:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.error {
+  color: #f5222d;
+  font-family: 'SourceSans Pro', sans-serif;
+  font-size: 14px;
+}
+
+.switch {
+  margin-top: 8px;
+  color: #8c8c8c;
+  font-family: 'SourceSans Pro', sans-serif;
+  font-size: 12px;
+  text-align: center;
+}
+
+.switch a {
+  color: #1890ff;
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding-top: 32px;
+  }
+
+  .card {
+width: fit-content;
+height: fit-content;
+  }
+}
+.username {
+  width: 500px;
+}

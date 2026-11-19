@@ -1,6 +1,6 @@
 import styles from './articleCard.module.css';
 import UserInfo from '../UserInfo/UserInfo.jsx';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import Tags from '../tags/Tags.jsx';
 import Like from '../buttons/Like.jsx';
 export default function ArticleCard({ article }) {

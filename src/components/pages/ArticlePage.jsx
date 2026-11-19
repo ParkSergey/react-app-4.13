@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Markdown from 'react-markdown';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import UserInfo from '../UserInfo/UserInfo';
 import Header from '../header/Header.jsx';
 import loadingImage from '../../assets/images/loading.svg';

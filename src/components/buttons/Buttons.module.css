@@ -47,3 +47,46 @@
   border: 1px solid #bb6161;
   border-radius: 10px;
 }
+.signin {
+  width: 120px;
+  height: 43px;
+  background-color: green;
+   border: 1px solid #61BB61;
+}
+
+.signin:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+.entrance {
+  font-family: 'SourceSan Pro',sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: #FFFFFF;
+
+}
+.wrapbutton {
+  display: flex;
+  justify-content: end;
+ 
+}
+.submit {
+  align-self: flex-end;
+  width: 120px;
+  height: 43px;
+  margin-top: 8px;
+  padding: 8px 16px;
+  color: #fff;
+  font-family: 'SourceSans Pro', sans-serif;
+  font-weight: 400;
+  font-size: 18x;
+  background: #61BB61;
+  border: 1px solid red;
+  border-radius: 4px;
+}
+.signup {
+  font-family: 'SourceSans Pro', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: #FFFFFF;
+}
