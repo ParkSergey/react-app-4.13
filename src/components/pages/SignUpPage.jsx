@@ -1,70 +1,131 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Header from '../header/Header.jsx';
 import styles from './AuthForms.module.css';
 import SignUp from '../buttons/SignUp.jsx';
+import { useForm } from 'react-hook-form';
 const API_URL = 'https://realworld.habsida.net/api';
 
 function SignUpPage() {
-  const [error, setError] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    setError,
+    clearErrors,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    mode: 'onTouched',
+    reValidateMode: 'onChange',
+  });
 
-  async function handleSubmit(event) {
-    event.preventDefault();
-    setError('');
-
-    const formData = new FormData(event.currentTarget);
-    if (formData.get('password') !== formData.get('repeatPassword')) {
-      setError('Passwords do not match.');
-      return;
-    }
-
-    setIsSubmitting(true);
+  async function onSubmit(formData) {
+    clearErrors('root.server');
     try {
       const response = await fetch(`${API_URL}/users`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           user: {
-            username: formData.get('username'),
-            email: formData.get('email'),
-            password: formData.get('password'),
+            username: formData.username,
+            email: formData.email,
+            password: formData.password,
           },
         }),
       });
-      const data = await response.json();
-
-      if (!response.ok) {
-        const messages = data.errors
-          ? Object.entries(data.errors)
-              .map(
-                ([field, details]) =>
-                  `${field} ${Array.isArray(details) ? details.join(', ') : details}`,
-              )
-              .join('; ')
-          : data.message;
-        throw new Error(messages || 'Unable to submit the form. Please try again.');
+      const responseText = await response.text();
+      let responseData;
+      try {
+        responseData = responseText ? JSON.parse(responseText) : null;
+      } catch {
+        responseData = { message: responseText };
       }
 
-      if (data.user) {
-        if (data.user.token) localStorage.setItem('token', data.user.token);
-        if (data.user.username) {
-          localStorage.setItem('username', data.user.username);
+      if (!response.ok) {
+        const serverErrors = responseData?.errors;
+        const formMessages = [];
+        const fieldNames = ['username', 'email', 'password'];
+        let hasFieldErrors = false;
+        const duplicateEmailPattern =
+          /UNIQUE constraint failed:\s*users\.email/i;
+        const isDuplicateEmail = duplicateEmailPattern.test(
+          JSON.stringify(responseData) ?? '',
+        );
+        const responseMessage =
+          typeof responseData === 'string'
+            ? responseData
+            : typeof responseData?.message === 'string'
+              ? responseData.message
+              : '';
+
+        if (serverErrors && typeof serverErrors === 'object') {
+          Object.entries(serverErrors).forEach(([field, details]) => {
+            const message = Array.isArray(details)
+              ? details.join(', ')
+              : typeof details === 'string'
+                ? details
+                : JSON.stringify(details);
+            if (isDuplicateEmail && duplicateEmailPattern.test(message)) {
+              return;
+            }
+            if (fieldNames.includes(field)) {
+              hasFieldErrors = true;
+              setError(field, {
+                type: 'server',
+                message: `${field}: ${message}`,
+              });
+            } else {
+              formMessages.push(`${field}: ${message}`);
+            }
+          });
+        }
+
+        if (isDuplicateEmail) {
+          setError('email', {
+            type: 'server',
+            message: 'Этот email уже зарегистрирован.',
+          });
+          hasFieldErrors = true;
+        } else if (responseMessage) {
+          formMessages.push(responseMessage);
+        }
+        const formMessage =
+          formMessages.join('; ') ||
+          (!hasFieldErrors
+            ? 'Не удалось создать аккаунт. Проверьте данные и попробуйте ещё раз.'
+            : '');
+        if (formMessage) {
+          setError('root.server', { type: 'server', message: formMessage });
+        }
+        return;
+      }
+
+      if (!responseData?.user) {
+        throw new Error('Сервер вернул некорректный ответ при регистрации.');
+      }
+
+      if (responseData.user) {
+        if (responseData.user.token)
+          localStorage.setItem('token', responseData.user.token);
+        if (responseData.user.username) {
+          localStorage.setItem('username', responseData.user.username);
         } else {
           localStorage.removeItem('username');
         }
-        if (data.user.image) {
-          localStorage.setItem('userImage', data.user.image);
+        if (responseData.user.image) {
+          localStorage.setItem('userImage', responseData.user.image);
         } else {
           localStorage.removeItem('userImage');
         }
       }
       navigate('/articles');
     } catch (submitError) {
-      setError(submitError.message || 'Unable to connect. Please try again.');
-    } finally {
-      setIsSubmitting(false);
+      setError('root.server', {
+        type: 'server',
+        message:
+          submitError.message ||
+          'Не удалось подключиться к серверу. Пожалуйста, попробуйте ещё раз.',
+      });
     }
   }
 
@@ -76,60 +137,99 @@ function SignUpPage() {
           <h1 className={styles.title}>Create account</h1>
           <form
             className={`${styles.form} ${styles.signUpForm}`}
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             aria-busy={isSubmitting}
+            noValidate
           >
-            <label className={styles.field}>
-              <input
-                type="text"
-                name="username"
-                placeholder="Username"
-                aria-label="Username"
-                autoComplete="username"
-                required
-              />
-            </label>
-            <label className={styles.field}>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email address"
-                aria-label="Email"
-                autoComplete="email"
-                required
-              />
-            </label>
-            <label className={styles.field}>
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                aria-label="Password"
-                autoComplete="new-password"
-                required
-              />
-            </label>
-            <label className={styles.field}>
-              <input
-                type="password"
-                name="repeatPassword"
-                placeholder="Repeat password"
-                aria-label="Repeat password"
-                autoComplete="new-password"
-                required
-              />
-            </label>
-            {error && (
+            <input
+              {...register('username', {
+                required: 'Введите имя пользователя',
+                validate: (value) =>
+                  value.trim().length > 0 ||
+                  'Имя пользователя не может быть пустым',
+                minLength: { value: 3, message: 'Минимум 3 символа' },
+                maxLength: { value: 20, message: 'Максимум 20 символов' },
+              })}
+              className={styles.field}
+              type="text"
+              placeholder="Username"
+              autoComplete="username"
+            />
+            {errors.username && (
               <p className={styles.error} role="alert">
-                {error}
+                {errors.username.message}
               </p>
             )}
-            <SignUp isSubmitting={isSubmitting} />
-          
+            <input
+              {...register('email', {
+                required: 'Введите email',
+                pattern: {
+                  value: /^\S+@\S+\.\S+$/,
+                  message: 'Неправильный email',
+                },
+              })}
+              className={styles.field}
+              type="email"
+              placeholder="Email address"
+              autoComplete="email"
+            />
+            {errors.email && (
+              <p className={styles.error} role="alert">
+                {errors.email.message}
+              </p>
+            )}
+            <input
+              {...register('password', {
+                required: 'Введите пароль',
+                minLength: { value: 6, message: 'Минимум 6 символов' },
+                maxLength: { value: 40, message: 'Максимум 40 символов' },
+                deps: 'repeatPassword',
+              })}
+              className={styles.field}
+              type="password"
+              placeholder="Password"
+              autoComplete="new-password"
+            />
+            {errors.password && (
+              <p className={styles.error} role="alert">
+                {errors.password.message}
+              </p>
+            )}
+            <input
+              {...register('repeatPassword', {
+                required: 'Повторите пароль',
+                validate: (value) =>
+                  value === getValues('password') || 'Пароли не совпадают',
+              })}
+              className={styles.field}
+              type="password"
+              placeholder="Repeat password"
+              autoComplete="new-password"
+            />
+            {errors.repeatPassword && (
+              <p className={styles.error} role="alert">
+                {errors.repeatPassword.message}
+              </p>
+            )}
+
+            <SignUp
+              isSubmitting={isSubmitting}
+              agreeRegistration={register('agree', {
+                required:
+                  'Необходимо согласие на обработку персональных данных',
+              })}
+            />
+            {errors.agree && (
+              <p className={styles.error} role="alert">
+                {errors.agree.message}
+              </p>
+            )}
+            {errors.root?.server && (
+              <p className={styles.error} role="alert">
+                {errors.root.server.message}
+              </p>
+            )}
           </form>
-          <p className={styles.switch}>
-            Already have an account? <Link to="/sign-in">Sign in</Link>
-          </p>
         </section>
       </main>
     </>

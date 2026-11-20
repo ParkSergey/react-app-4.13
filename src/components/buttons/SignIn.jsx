@@ -7,7 +7,8 @@ function SignIn({ isSubmitting = false }) {
         <span className={styles.entrance}>
           {isSubmitting ? 'Please wait...' : 'Sign In'}
         </span>
-      </button>
+        </button>
+        
     </div>
   );
 }

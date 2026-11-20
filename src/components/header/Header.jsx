@@ -1,5 +1,5 @@
 import styles from './header.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import userIcon from '../../assets/images/Icon.svg';
 
 function Header() {

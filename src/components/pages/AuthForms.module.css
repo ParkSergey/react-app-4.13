@@ -30,6 +30,7 @@
 }
 
 .field {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -38,8 +39,12 @@
   font-size: 14px;
 }
 
-.field input {
-  width: 480px;
+.field input,
+input.field,
+textarea.field,
+.textarea {
+  box-sizing: border-box;
+  width: 100%;
   max-width: 100%;
   min-height: 48px;
   padding: 8px 12px;
@@ -49,16 +54,26 @@
   border-radius: 4px;
 }
 
-.signUpForm .field input {
+.textarea {
+  width: 480px;
+  height: 100px;
+}
+
+.signUpForm .field input,
+.signUpForm input.field {
   width: 480px;
   height: 48px;
 }
 
-.field input::placeholder {
+.field input::placeholder,
+input.field::placeholder,
+.textarea::placeholder {
   color: #bfbfbf;
 }
 
-.field input:focus {
+.field input:focus,
+input.field:focus,
+.textarea:focus {
   border-color: #61bb61;
   outline: 2px solid rgb(97 187 97 / 18%);
 }
@@ -89,6 +104,12 @@
   font-size: 14px;
 }
 
+.success {
+  color: #389e0d;
+  font-family: 'SourceSans Pro', sans-serif;
+  font-size: 14px;
+}
+
 .switch {
   margin-top: 8px;
   color: #8c8c8c;
@@ -111,6 +132,4 @@ width: fit-content;
 height: fit-content;
   }
 }
-.username {
-  width: 500px;
-}
+

@@ -1,34 +1,35 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import Header from '../header/Header.jsx';
-import styles from './AuthForms.module.css';
 import SignIn from '../buttons/SignIn.jsx';
+import styles from './AuthForms.module.css';
 
 const API_URL = 'https://realworld.habsida.net/api';
 
 function SignInPage() {
-  const [error, setError] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverError, setServerError] = useState('');
   const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm();
 
-  async function handleSubmit(event) {
-    event.preventDefault();
-    setError('');
-    setIsSubmitting(true);
+  async function onSubmit({ email, password }) {
+    setServerError('');
 
-    const formData = new FormData(event.currentTarget);
     try {
       const response = await fetch(`${API_URL}/users/login`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
-          user: {
-            email: formData.get('email'),
-            password: formData.get('password'),
-          },
+          user: { email, password },
         }),
       });
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
 
       if (!response.ok) {
         const messages = data.errors
@@ -39,27 +40,30 @@ function SignInPage() {
               )
               .join('; ')
           : data.message;
-        throw new Error(messages || 'Unable to submit form. Please try again.');
+        throw new Error(messages || 'Ошибка ввода. Пожалуйста, попробуйте еще раз.');
       }
 
-      if (data.user) {
-        if (data.user.token) localStorage.setItem('token', data.user.token);
-        if (data.user.username) {
-          localStorage.setItem('username', data.user.username);
-        } else {
-          localStorage.removeItem('username');
-        }
-        if (data.user.image) {
-          localStorage.setItem('userImage', data.user.image);
-        } else {
-          localStorage.removeItem('userImage');
-        }
+      if (data.user?.token) {
+        localStorage.setItem('token', data.user.token);
+      } else {
+        localStorage.removeItem('token');
       }
+      if (data.user?.username) {
+        localStorage.setItem('username', data.user.username);
+      } else {
+        localStorage.removeItem('username');
+      }
+      if (data.user?.image) {
+        localStorage.setItem('userImage', data.user.image);
+      } else {
+        localStorage.removeItem('userImage');
+      }
+
       navigate('/articles');
     } catch (submitError) {
-      setError(submitError.message || 'Unable to connect. Please try again.');
-    } finally {
-      setIsSubmitting(false);
+      setServerError(
+        submitError.message || 'Ошибка сервера. Пожалуйста, попробуйте еще раз.',
+      );
     }
   }
 
@@ -69,37 +73,55 @@ function SignInPage() {
       <main className={styles.page}>
         <section className={styles.card}>
           <h1 className={styles.title}>Sign In</h1>
-          <form className={styles.form} onSubmit={handleSubmit} aria-busy={isSubmitting}>
-            <label className={styles.field}>
-              <input className={styles.username}
-                type="email"
-                name="email"
-                placeholder="Username"
 
-                autoComplete="email"
-                required
-              />
-            </label>
-            <label className={styles.field}>
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                aria-label="Password"
-                autoComplete="current-password"
-                required
-              />
-            </label>
-            {error && (
+          <form
+            className={styles.form}
+            onSubmit={handleSubmit(onSubmit)}
+            aria-busy={isSubmitting}
+            noValidate
+          >
+            <input
+              className={styles.field}
+              {...register('email', {
+                required: 'Введите email',
+                pattern: { value: /^\S+@\S+\.\S+$/, message: 'Неправильный email' },
+              })}
+              type="email"
+              placeholder="Email"
+              autoComplete="email"
+            />
+            {errors.email && (
               <p className={styles.error} role="alert">
-                {error}
+                {errors.email.message}
               </p>
             )}
+
+            <input
+              className={styles.field}
+              {...register('password', {
+                required: 'Введите пароль',
+              })}
+              type="password"
+              placeholder="Password"
+              aria-label="Password"
+              autoComplete="current-password"
+            />
+            {errors.password && (
+              <p className={styles.error} role="alert">
+                {errors.password.message}
+              </p>
+            )}
+
+            {serverError && (
+              <p className={styles.error} role="alert">
+                {serverError}
+              </p>
+            )}
+
             <SignIn isSubmitting={isSubmitting} />
           </form>
-          <p className={styles.switch}>
-            Don&apos;t have an account? <Link to="/sign-up">Sign up</Link>
-          </p>
+
+
         </section>
       </main>
     </>
