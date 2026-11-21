@@ -1,10 +1,25 @@
 import styles from './header.module.css';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import userIcon from '../../assets/images/Icon.svg';
 
 function Header() {
-  const username = localStorage.getItem('username');
-  const userImage = localStorage.getItem('userImage');
+  const [username, setUsername] = useState(() =>
+    localStorage.getItem('username'),
+  );
+  const [userImage, setUserImage] = useState(() =>
+    localStorage.getItem('userImage'),
+  );
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('userImage');
+    setUsername(null);
+    setUserImage(null);
+    navigate('/');
+  }
 
   return (
     <header className={styles.header}>
@@ -23,6 +38,13 @@ function Header() {
                 event.currentTarget.src = userIcon;
               }}
             />
+            <button
+              className={styles.logout}
+              type="button"
+              onClick={handleLogout}
+            >
+              Log out
+            </button>
           </div>
         ) : (
           <>

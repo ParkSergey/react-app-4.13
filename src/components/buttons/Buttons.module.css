@@ -1,97 +1,39 @@
-.button {
-  width: 112px;
-  height: 40px;
-  border-radius: 9px;
-  background-color: #61bb61;
-  font-family: 'SourceSans Pro', sans-serif;
+button {
+  font-family:'SourceSans Pro', sans-serif;
   font-weight: 400;
-  font-size: 12.8px;
+  font-size: 18px;
+
+}
+.small {
+  width: 86px;
+  height: 40px;
+}
+
+.large {
+  width: 120px;
+  height: 48px;
+}
+
+.filled {
   color: #ffffff;
-}
-.like {
-  margin-right: 20px;
-  width: 90px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-}
-.like img {
-  margin-left: 20px;
-  width: 16px;
-  height: 16px;
-}
-.buttons {
-  display: flex;
-  gap: 8px;
-  justify-content: space-between;
-  width: 129px;
-  height: 32px;
-}
-.green {
-  width: 54px;
-  height: 32px;
-  color: #61bb61;
-  font-family: 'SourceSans Pro', sans-serif;
-  font-weight: 400;
-  font-size: 12.8px;
+  background: #0a0e0a;
   border: 1px solid #61bb61;
-  border-radius: 10px;
-}
-.red {
-  font-family: 'SourceSans Pro', sans-serif;
-  font-weight: 400;
-  font-size: 12.8px;
-  width: 67px;
-  height: 32px;
-  color: #bb6161;
-  border: 1px solid #bb6161;
-  border-radius: 10px;
-}
-.signin {
-  width: 120px;
-  height: 43px;
-  background-color: green;
-   border: 1px solid #61BB61;
-}
-
-.signin:disabled {
-  cursor: wait;
-  opacity: 0.65;
-}
-.entrance {
-  font-family: 'SourceSan Pro',sans-serif;
-  font-weight: 400;
-  font-size: 18px;
-  color: #FFFFFF;
-
-}
-.wrapbutton {
-  display: flex;
-  justify-content: space-between;
- 
-}
-.submit {
-  align-self: flex-end;
-  width: 120px;
-  height: 43px;
-  margin-top: 8px;
-  padding: 8px 16px;
-  color: #fff;
-  font-family: 'SourceSans Pro', sans-serif;
-  font-weight: 400;
-  font-size: 18x;
-  background: #61BB61;
-  border: 1px solid red;
   border-radius: 4px;
+  cursor: pointer;
 }
-.signup {
-  font-family: 'SourceSans Pro', sans-serif;
-  font-weight: 400;
-  font-size: 18px;
-  color: #FFFFFF;
+
+.outline {
+  color: #61bb61;
+  background: #ffffff;
+  border: 1px solid #61bb61;
+  border-radius: 4px;
+  cursor: pointer;
 }
-.checkbox {
-  font-family: 'Titillium Web', Arial, Helvetica, sans-serif;
-  margin-top: 20px;
-  margin-right: 150px;
+
+.liked {
+  color: #61bb61;
+  background: #f0f9eb;
+  border: 1px solid #61bb61;
+  border-radius: 4px;
+  cursor: pointer;
 }

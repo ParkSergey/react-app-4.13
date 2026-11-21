@@ -12,7 +12,7 @@ function SignUp({ isSubmitting = false, agreeRegistration }) {
       <span className={styles.checkbox}>согласие на обработку <br></br>персональных данных</span>
       <button className={styles.signin} type="submit" disabled={isSubmitting}>
         <span className={styles.signup}>
-          {isSubmitting ? '' : 'Sign Up'}
+  { 'Sign Up'}
         </span>
       </button>
     </div>

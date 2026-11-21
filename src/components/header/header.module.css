@@ -43,3 +43,15 @@
   border-radius: 50%;
   object-fit: cover;
 }
+
+.logout {
+  height: 32px;
+  padding: 0 10px;
+  color: #bb6161;
+  font-family: 'SourceSans Pro', sans-serif;
+  font-size: 12.8px;
+  background: transparent;
+  border: 1px solid #bb6161;
+  border-radius: 10px;
+  cursor: pointer;
+}

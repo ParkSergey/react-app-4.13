@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import Header from '../header/Header.jsx';
-import SignIn from '../buttons/SignIn.jsx';
+import Header from '../components/header/Header.jsx';
+import SignIn from '../components/buttons/SignIn.jsx';
 import styles from './AuthForms.module.css';
 
 const API_URL = 'https://realworld.habsida.net/api';
@@ -40,7 +40,9 @@ function SignInPage() {
               )
               .join('; ')
           : data.message;
-        throw new Error(messages || 'Ошибка ввода. Пожалуйста, попробуйте еще раз.');
+        throw new Error(
+          messages || 'Ошибка ввода. Пожалуйста, попробуйте еще раз.',
+        );
       }
 
       if (data.user?.token) {
@@ -62,7 +64,8 @@ function SignInPage() {
       navigate('/articles');
     } catch (submitError) {
       setServerError(
-        submitError.message || 'Ошибка сервера. Пожалуйста, попробуйте еще раз.',
+        submitError.message ||
+          'Ошибка сервера. Пожалуйста, попробуйте еще раз.',
       );
     }
   }
@@ -84,7 +87,10 @@ function SignInPage() {
               className={styles.field}
               {...register('email', {
                 required: 'Введите email',
-                pattern: { value: /^\S+@\S+\.\S+$/, message: 'Неправильный email' },
+                pattern: {
+                  value: /^\S+@\S+\.\S+$/,
+                  message: 'Неправильный email',
+                },
               })}
               type="email"
               placeholder="Email"
@@ -120,8 +126,6 @@ function SignInPage() {
 
             <SignIn isSubmitting={isSubmitting} />
           </form>
-
-
         </section>
       </main>
     </>

@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import Markdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
-import UserInfo from '../UserInfo/UserInfo';
-import Header from '../header/Header.jsx';
-import loadingImage from '../../assets/images/loading.svg';
-import refresh from '../../assets/images/refresh.svg';
-import styles from '../pages/ArticlePage.module.css';
-import Tags from '../tags/Tags.jsx';
-import FavoriteArticle from '../buttons/FavoriteArticle.jsx';
+import UserInfo from '../components/UserInfo/UserInfo';
+import Header from '../components/header/Header.jsx';
+import loadingImage from '../assets/images/loading.svg';
+import refresh from '../assets/images/refresh.svg';
+import styles from './ArticlePage.module.css';
+import Tags from '../components/tags/Tags.jsx';
+import FavoriteArticle from '../components/buttons/FavoriteArticle.jsx';
 
 function ArticlePage() {
   const { slug } = useParams();
