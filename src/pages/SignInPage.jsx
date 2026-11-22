@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Header from '../components/header/Header.jsx';
-import SignIn from '../components/buttons/SignIn.jsx';
 import styles from './AuthForms.module.css';
 import Button from '../components/buttons/Buttons.jsx';
 

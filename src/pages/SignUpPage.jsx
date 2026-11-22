@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/header/Header.jsx';
 import styles from './AuthForms.module.css';
-import SignUp from '../components/buttons/SignUp.jsx';
+
 import { useForm } from 'react-hook-form';
 const API_URL = 'https://realworld.habsida.net/api';
 

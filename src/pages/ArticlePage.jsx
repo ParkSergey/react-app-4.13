@@ -7,7 +7,7 @@ import loadingImage from '../assets/images/loading.svg';
 import refresh from '../assets/images/refresh.svg';
 import styles from './ArticlePage.module.css';
 import Tags from '../components/tags/Tags.jsx';
-import FavoriteArticle from '../components/buttons/FavoriteArticle.jsx';
+
 
 function ArticlePage() {
   const { slug } = useParams();

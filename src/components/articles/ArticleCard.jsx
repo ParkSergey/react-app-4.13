@@ -2,7 +2,6 @@ import styles from './articleCard.module.css';
 import UserInfo from '../UserInfo/UserInfo.jsx';
 import { Link } from 'react-router-dom';
 import Tags from '../tags/Tags.jsx';
-import Like from '../buttons/Like.jsx';
 export default function ArticleCard({ article }) {
   return (
     <div className={styles.articleCard}>
@@ -12,7 +11,6 @@ export default function ArticleCard({ article }) {
           image={article.image}
           date={article.createdAt}
         />
-        <Like />
       </div>
       <h2 className={styles.title}>
         <Link className={styles.link} to={`/articles/${article.slug}`}>
