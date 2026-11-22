@@ -6,6 +6,7 @@ function Button({
   className = '',
   type = 'button',
   variant = 'filled',
+  icon,
   ...props
 }) {
   const classes = [
@@ -17,6 +18,7 @@ function Button({
 
   return (
     <button type={type} className={classes} {...props}>
+      {icon && <span className={styles.icon}>{icon}</span>}
       {children}
     </button>
   );

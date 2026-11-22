@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import Header from '../components/header/Header.jsx';
 import SignIn from '../components/buttons/SignIn.jsx';
 import styles from './AuthForms.module.css';
+import Button from '../components/buttons/Buttons.jsx';
 
 const API_URL = 'https://realworld.habsida.net/api';
 
@@ -123,8 +124,8 @@ function SignInPage() {
                 {serverError}
               </p>
             )}
-
-            <SignIn isSubmitting={isSubmitting} />
+<Button className={styles.submit} size='large' type='submit' variant='filled'>Sign In</Button>
+           
           </form>
         </section>
       </main>
