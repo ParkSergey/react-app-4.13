@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import Header from '../components/header/Header.jsx';
 import styles from './AuthForms.module.css';
 import Button from '../components/buttons/Buttons.jsx';
+import Input from '../components/input/Input.jsx';
 
 const API_URL = 'https://realworld.habsida.net/api';
 
@@ -83,48 +84,43 @@ function SignInPage() {
             aria-busy={isSubmitting}
             noValidate
           >
-            <input
-              className={styles.field}
-              {...register('email', {
-                required: 'Введите email',
+            <Input
+              name="email"
+              register={register}
+              errors={errors}
+              type="email"
+              placeholder="Username"
+              autoComplete="email"
+              rules={{
+                required: 'ВВедите email',
                 pattern: {
                   value: /^\S+@\S+\.\S+$/,
                   message: 'Неправильный email',
                 },
-              })}
-              type="email"
-              placeholder="Email"
-              autoComplete="email"
+              }}
             />
-            {errors.email && (
-              <p className={styles.error} role="alert">
-                {errors.email.message}
-              </p>
-            )}
 
-            <input
-              className={styles.field}
-              {...register('password', {
-                required: 'Введите пароль',
-              })}
+            <Input
               type="password"
+              name="Password"
+              register={register}
+              errors={errors}
               placeholder="Password"
-              aria-label="Password"
-              autoComplete="current-password"
+              autoComplete="password"
+              rules={{
+                required: 'Введите password',
+              }}
             />
-            {errors.password && (
-              <p className={styles.error} role="alert">
-                {errors.password.message}
-              </p>
-            )}
 
-            {serverError && (
-              <p className={styles.error} role="alert">
-                {serverError}
-              </p>
-            )}
-<Button className={styles.submit} size='large' type='submit' variant='filled'>Sign In</Button>
-           
+          
+            <Button
+              className={styles.submit}
+              size="large"
+              type="submit"
+              variant="filled"
+            >
+              Sign In
+            </Button>
           </form>
         </section>
       </main>

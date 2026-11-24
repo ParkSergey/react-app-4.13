@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/header/Header.jsx';
 import styles from './AuthForms.module.css';
-
+import Button from '../components/buttons/Buttons.jsx';
+import Input from '../components/input/Input.jsx';
 import { useForm } from 'react-hook-form';
 const API_URL = 'https://realworld.habsida.net/api';
 
@@ -141,94 +142,70 @@ function SignUpPage() {
             aria-busy={isSubmitting}
             noValidate
           >
-            <input
-              {...register('username', {
-                required: 'Введите имя пользователя',
-                validate: (value) =>
-                  value.trim().length > 0 ||
-                  'Имя пользователя не может быть пустым',
-                minLength: { value: 3, message: 'Минимум 3 символа' },
-                maxLength: { value: 20, message: 'Максимум 20 символов' },
-              })}
-              className={styles.field}
-              type="text"
+            <Input
+              name="Username"
+              register={register}
+              errors={errors}
+              type="username"
               placeholder="Username"
-              autoComplete="username"
-            />
-            {errors.username && (
-              <p className={styles.error} role="alert">
-                {errors.username.message}
-              </p>
-            )}
-            <input
-              {...register('email', {
-                required: 'Введите email',
+              autoComplete="email"
+              rules={{
+                required: 'ВВедите Username',
+                  minLength: { value: 3, message: "Минимум 3 символа" },
+                  maxLength:{ value:20, message:"Максимум 20 символов"
+                },
+              }}
+                />
+            <Input
+              name="email"
+              register={register}
+              errors={errors}
+              type='email'
+              placeholder="email"
+              autoComplete="email"
+               rules={{
+                required: 'ВВедите email',
                 pattern: {
                   value: /^\S+@\S+\.\S+$/,
                   message: 'Неправильный email',
                 },
-              })}
-              className={styles.field}
-              type="email"
-              placeholder="Email address"
-              autoComplete="email"
-            />
-            {errors.email && (
-              <p className={styles.error} role="alert">
-                {errors.email.message}
-              </p>
-            )}
-            <input
-              {...register('password', {
-                required: 'Введите пароль',
-                minLength: { value: 6, message: 'Минимум 6 символов' },
-                maxLength: { value: 40, message: 'Максимум 40 символов' },
-                deps: 'repeatPassword',
-              })}
-              className={styles.field}
-              type="password"
+              }}
+              />
+            <Input
+              name="Password"
+              register={register}
+              errors={errors}
+              type='password'
               placeholder="Password"
-              autoComplete="new-password"
+              autoComplete="password"
+              rules={{
+                required: "Введите пароль",
+                minLength: { value: 6, message: "Пароль должен быть не меньше 6 сиволов" },
+                maxLength: {
+                  value:6, message: "Пароль должен быть не больше 40 символов"},
+                }
+              }
             />
-            {errors.password && (
-              <p className={styles.error} role="alert">
-                {errors.password.message}
-              </p>
-            )}
-            <input
-              {...register('repeatPassword', {
-                required: 'Повторите пароль',
+              <Input
+              name="repeat password"
+              register={register}
+              errors={errors}
+              type='repeat password'
+              placeholder="Repeat Password"
+              autoComplete="new password"
+              rules={{
+                required: "Повторите пароль",
                 validate: (value) =>
-                  value === getValues('password') || 'Пароли не совпадают',
-              })}
-              className={styles.field}
-              type="password"
-              placeholder="Repeat password"
-              autoComplete="new-password"
+                  value === getValues("password") || "Пароли не совпадают",
+              }}
             />
-            {errors.repeatPassword && (
-              <p className={styles.error} role="alert">
-                {errors.repeatPassword.message}
-              </p>
-            )}
-
-            <SignUp
-              isSubmitting={isSubmitting}
-              agreeRegistration={register('agree', {
-                required:
-                  'Необходимо согласие на обработку персональных данных',
-              })}
-            />
-            {errors.agree && (
-              <p className={styles.error} role="alert">
-                {errors.agree.message}
-              </p>
-            )}
-            {errors.root?.server && (
-              <p className={styles.error} role="alert">
-                {errors.root.server.message}
-              </p>
-            )}
+           
+            <Button
+              className={styles.signup}
+              size="large"
+              type="submit"
+              variant="filled"
+            >Sign Up</Button>
           </form>
         </section>
       </main>

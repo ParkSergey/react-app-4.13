@@ -23,7 +23,7 @@
   text-align: center;
 }
 
-.form {
+ form {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -128,8 +128,13 @@ input.field:focus,
   }
 
   .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
 width: fit-content;
 height: fit-content;
   }
 }
-
+.signup {
+margin-left: auto;
+}

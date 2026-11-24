@@ -13,7 +13,7 @@ function ButtonsDemo() {
       <Input
         name="email"
         type="email"
-        placeholder="username"
+        placeholder="enter email"
         register={register}
         errors={errors}
         rules={{ required: 'Введите email' }}
