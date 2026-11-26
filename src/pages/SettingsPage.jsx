@@ -11,8 +11,9 @@ const API_URL = 'https://realworld.habsida.net/api';
 
 function SettingsPage() {
   const navigate = useNavigate();
-  const { login, logout } = useAuth();
+  const { user, login, logout } = useAuth();
   const token = localStorage.getItem('token');
+  const authUsername = user?.username || '';
 
   const {
     register,
@@ -20,7 +21,10 @@ function SettingsPage() {
     reset,
     setError,
     formState: { errors, isSubmitting },
-  } = useForm({ mode: 'onTouched' });
+  } = useForm({
+    mode: 'onTouched',
+    defaultValues: { username: authUsername },
+  });
 
 
   useEffect(() => {
@@ -36,7 +40,7 @@ function SettingsPage() {
       })
       .then((data) => {
         reset({
-          username: data.user.username,
+          username: data.user.username || authUsername,
           email: data.user.email,
           image: data.user.image || '',
           password: '',
@@ -49,7 +53,7 @@ function SettingsPage() {
       });
 
     return () => controller.abort();
-  }, [token, reset, setError]);
+  }, [authUsername, token, reset, setError]);
 
   async function onSubmit({ username, email, password, image }) {
    
@@ -144,12 +148,12 @@ function SettingsPage() {
             noValidate
           >
             <Input
-              name="Username"
+              name="username"
               register={register}
               errors={errors}
-              type="username"
+              type="text"
               placeholder="Username"
-              autoComplete="email"
+              autoComplete="username"
               rules={{
                 required: 'ВВедите Username',
               }}
