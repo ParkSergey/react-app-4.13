@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Pagination from '../components/pagination/Pagination.jsx';
 import UserInfo from '../components/UserInfo/UserInfo.jsx';
 import styles from './ProfilePage.module.css';
+import fallbackAvatar from '../assets/images/Icon.svg';
 
 const API_URL = 'https://realworld.habsida.net/api';
 const ARTICLES_PER_PAGE = 3;
@@ -100,20 +101,12 @@ function ProfilePage() {
   return (
     <main className={styles.page}>
       <section className={styles.profileBanner} aria-label="Profile">
-        {profile.image && !avatarError ? (
-          <img
-            className={styles.avatar}
-            src={profile.image}
-            alt=""
-            onError={() => setAvatarError(true)}
-          />
-        ) : (
-          <div
-            className={`${styles.avatar} ${styles.avatarPlaceholder}`}
-            role="img"
-            aria-label={`${profile.username}'s avatar`}
-          />
-        )}
+        <img
+          className={styles.avatar}
+          src={profile.image && !avatarError ? profile.image : fallbackAvatar}
+          alt=""
+          onError={() => setAvatarError(true)}
+        />
         <h1>{profile.username}</h1>
       </section>
 
