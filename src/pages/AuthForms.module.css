@@ -29,6 +29,14 @@
   gap: 12px;
 }
 
+.settingsForm input {
+  padding-left: 16px;
+}
+
+.settingsForm input[placeholder]::placeholder {
+  padding: 0;
+}
+
 .field {
   width: 100%;
   display: flex;
@@ -137,4 +145,27 @@ height: fit-content;
 }
 .signup {
 margin-left: auto;
+}
+button.update {
+  width: 150px;
+  height: 43px;
+  align-self: flex-end;
+}
+Input.bio {
+  width: 480px;
+  height: 100px;
+ padding-bottom: 60px;
+ padding-right: 20px;
+}
+Input.bio::placeholder {
+  color: #333333;
+}
+Input.password::placeholder {
+  color: #333333;
+}
+Button.logout {
+  color: #BB6161;
+  width: 180px;
+  height: 40px;
+  border: 1px solid #BB6161;
 }

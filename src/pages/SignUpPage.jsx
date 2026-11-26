@@ -1,13 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import Header from '../components/header/Header.jsx';
 import styles from './AuthForms.module.css';
 import Button from '../components/buttons/Buttons.jsx';
 import Input from '../components/input/Input.jsx';
 import { useForm } from 'react-hook-form';
+import { useAuth } from '../components/authentification/AuthContext.jsx';
 const API_URL = 'https://realworld.habsida.net/api';
 
 function SignUpPage() {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const {
     register,
     handleSubmit,
@@ -105,20 +106,7 @@ function SignUpPage() {
         throw new Error('Сервер вернул некорректный ответ при регистрации.');
       }
 
-      if (responseData.user) {
-        if (responseData.user.token)
-          localStorage.setItem('token', responseData.user.token);
-        if (responseData.user.username) {
-          localStorage.setItem('username', responseData.user.username);
-        } else {
-          localStorage.removeItem('username');
-        }
-        if (responseData.user.image) {
-          localStorage.setItem('userImage', responseData.user.image);
-        } else {
-          localStorage.removeItem('userImage');
-        }
-      }
+      login(responseData.user);
       navigate('/articles');
     } catch (submitError) {
       setError('root.server', {
@@ -132,7 +120,6 @@ function SignUpPage() {
 
   return (
     <>
-      <Header />
       <main className={styles.page}>
         <section className={styles.card}>
           <h1 className={styles.title}>Create account</h1>
@@ -151,61 +138,66 @@ function SignUpPage() {
               autoComplete="email"
               rules={{
                 required: 'ВВедите Username',
-                  minLength: { value: 3, message: "Минимум 3 символа" },
-                  maxLength:{ value:20, message:"Максимум 20 символов"
-                },
+                minLength: { value: 3, message: 'Минимум 3 символа' },
+                maxLength: { value: 20, message: 'Максимум 20 символов' },
               }}
-                />
+            />
             <Input
               name="email"
               register={register}
               errors={errors}
-              type='email'
+              type="email"
               placeholder="email"
               autoComplete="email"
-               rules={{
+              rules={{
                 required: 'ВВедите email',
                 pattern: {
                   value: /^\S+@\S+\.\S+$/,
                   message: 'Неправильный email',
                 },
               }}
-              />
+            />
             <Input
-              name="Password"
+              name="password"
               register={register}
               errors={errors}
-              type='password'
+              type="password"
               placeholder="Password"
               autoComplete="password"
               rules={{
-                required: "Введите пароль",
-                minLength: { value: 6, message: "Пароль должен быть не меньше 6 сиволов" },
+                required: 'Введите пароль',
+                minLength: {
+                  value: 6,
+                  message: 'Пароль должен быть не меньше 6 сиволов',
+                },
                 maxLength: {
-                  value:6, message: "Пароль должен быть не больше 40 символов"},
-                }
-              }
+                  value: 40,
+                  message: 'Пароль должен быть не больше 40 символов',
+                },
+              }}
             />
-              <Input
+            <Input
               name="repeat password"
               register={register}
               errors={errors}
-              type='repeat password'
+              type="password"
               placeholder="Repeat Password"
               autoComplete="new password"
               rules={{
-                required: "Повторите пароль",
+                required: 'Повторите пароль',
                 validate: (value) =>
-                  value === getValues("password") || "Пароли не совпадают",
+                  value === getValues('password') || 'Пароли не совпадают',
               }}
             />
-           
+
             <Button
               className={styles.signup}
               size="large"
               type="submit"
               variant="filled"
-            >Sign Up</Button>
+            >
+              Sign Up
+            </Button>
           </form>
         </section>
       </main>

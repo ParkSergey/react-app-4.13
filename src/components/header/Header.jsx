@@ -1,58 +1,53 @@
+import { Link } from 'react-router-dom';
 import styles from './header.module.css';
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import userIcon from '../../assets/images/Icon.svg';
+import newPostIcon from '../../assets/images/pen.svg';
+import settingsIcon from '../../assets/images/settings.svg';
+import userIcon from '../../assets/images/smallIcon.svg';
+import { useAuth } from '../authentification/AuthContext.jsx'
 
 function Header() {
-  const [username, setUsername] = useState(() =>
-    localStorage.getItem('username'),
-  );
-  const [userImage, setUserImage] = useState(() =>
-    localStorage.getItem('userImage'),
-  );
-  const navigate = useNavigate();
+  const { user } = useAuth()
+ 
+  const isAuthenticated = Boolean(user);
 
-  function handleLogout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    localStorage.removeItem('userImage');
-    setUsername(null);
-    setUserImage(null);
-    navigate('/');
-  }
 
   return (
     <header className={styles.header}>
-      <div className={styles.text}>Realworld Blog</div>
-      <nav className={styles.url}>
-        <Link to="/">Home</Link>
-        {username ? (
-          <div className={styles.profile}>
-            <span className={styles.username}>{username}</span>
-            <img
-              className={styles.avatar}
-              src={userImage || userIcon}
-              alt=""
-              onError={(event) => {
-                event.currentTarget.onerror = null;
-                event.currentTarget.src = userIcon;
-              }}
-            />
-            <button
-              className={styles.logout}
-              type="button"
-              onClick={handleLogout}
-            >
-              Log out
-            </button>
-          </div>
-        ) : (
-          <>
-            <Link to="/sign-in">Sign In</Link>
-            <Link to="/sign-up">Sign Up</Link>
-          </>
-        )}
-      </nav>
+      <div
+        className={`${styles.container} ${
+          isAuthenticated
+            ? styles.authenticatedContainer
+            : styles.guestContainer
+        }`}
+      >
+        <Link className={styles.brand} to="/">
+          Realworld Blog
+        </Link>
+        <nav className={styles.url}>
+          <Link to="/">Home</Link>
+          {isAuthenticated ? (
+            <>
+              <Link className={styles.navItem} to="/editor">
+                <img src={newPostIcon} alt="" />
+                New Post
+              </Link>
+              <Link className={styles.navItem} to="/settings">
+                <img src={settingsIcon} alt="" />
+                Settings
+              </Link>
+              <Link className={styles.navItem} to="/profile">
+                <img src={userIcon} alt="" />
+                {user.username || 'Profile'}
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="/sign-in">Sign In</Link>
+              <Link to="/sign-up">Sign Up</Link>
+            </>
+          )}
+        </nav>
+      </div>
     </header>
   );
 }

@@ -1,16 +1,17 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import Header from '../components/header/Header.jsx';
 import styles from './AuthForms.module.css';
 import Button from '../components/buttons/Buttons.jsx';
 import Input from '../components/input/Input.jsx';
+import { useAuth } from '../components/authentification/AuthContext.jsx';
 
 const API_URL = 'https://realworld.habsida.net/api';
 
 function SignInPage() {
   const [serverError, setServerError] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
   const {
     register,
     handleSubmit,
@@ -33,6 +34,29 @@ function SignInPage() {
       const data = await response.json().catch(() => ({}));
 
       if (!response.ok) {
+        if (!response.ok) {
+          const isInvalidLogin =
+            response.status === 401 ||
+            response.status === 403 ||
+            response.status === 422 ||
+            data.errors?.['email or password'];
+
+          if (isInvalidLogin) {
+            throw new Error('Неверный email или пароль.');
+          }
+
+          const messages = data.errors
+            ? Object.entries(data.errors)
+                .map(
+                  ([field, details]) =>
+                    `${field} ${Array.isArray(details) ? details.join(', ') : details}`,
+                )
+                .join('; ')
+            : data.message;
+          throw new Error(
+            messages || 'Ошибка ввода. Пожалуйста, попробуйте еще раз.',
+          );
+        }
         const messages = data.errors
           ? Object.entries(data.errors)
               .map(
@@ -46,21 +70,7 @@ function SignInPage() {
         );
       }
 
-      if (data.user?.token) {
-        localStorage.setItem('token', data.user.token);
-      } else {
-        localStorage.removeItem('token');
-      }
-      if (data.user?.username) {
-        localStorage.setItem('username', data.user.username);
-      } else {
-        localStorage.removeItem('username');
-      }
-      if (data.user?.image) {
-        localStorage.setItem('userImage', data.user.image);
-      } else {
-        localStorage.removeItem('userImage');
-      }
+      login(data.user);
 
       navigate('/articles');
     } catch (submitError) {
@@ -73,7 +83,6 @@ function SignInPage() {
 
   return (
     <>
-      <Header />
       <main className={styles.page}>
         <section className={styles.card}>
           <h1 className={styles.title}>Sign In</h1>
@@ -89,7 +98,7 @@ function SignInPage() {
               register={register}
               errors={errors}
               type="email"
-              placeholder="Username"
+              placeholder="Email address"
               autoComplete="email"
               rules={{
                 required: 'ВВедите email',
@@ -102,7 +111,7 @@ function SignInPage() {
 
             <Input
               type="password"
-              name="Password"
+              name="password"
               register={register}
               errors={errors}
               placeholder="Password"
@@ -111,8 +120,11 @@ function SignInPage() {
                 required: 'Введите password',
               }}
             />
-
-          
+            {serverError && (
+              <p className={styles.error} role="alert">
+                {serverError}
+              </p>
+            )}
             <Button
               className={styles.submit}
               size="large"

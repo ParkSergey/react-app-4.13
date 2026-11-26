@@ -38,10 +38,6 @@ function ArticlePage() {
 
   return (
     <>
-      <div className={styles.headerWrap}>
-        <Header />
-      </div>
-
       {loading && (
         <p className="loadingIndicator" role="status">
           <img className="loadingSpinner" src={refresh} alt="" />

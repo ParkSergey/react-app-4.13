@@ -1,37 +1,42 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import Header from './components/header/Header.jsx';
-import Banner from './components/banners/BannerDefault.jsx';
-import Sidebar from './components/sidebar/Sidebar.jsx';
-import ArticleList from './components/articles/ArticleList.jsx';
+import Layout from './components/layout/Layout.jsx';
+import RequireAuth from './components/require/RequireAuth.jsx';
+import HomePage from './pages/HomePage.jsx';
 import Article from './pages/ArticlePage.jsx';
 import SignInPage from './pages/SignInPage.jsx';
 import SignUpPage from './pages/SignUpPage.jsx';
-import ButtonsDemo from './pages/ButtonsDemo.jsx';
-
-function Home() {
-  return (
-    <>
-      <Header />
-      <Banner />
-      <Sidebar />
-      <ArticleList />
-    </>
-  );
-}
+import SettingsPage from './pages/SettingsPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
 
 function App() {
   return (
-    <>
-      <Routes>
-        <Route path='/buttons' element={<ButtonsDemo />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/articles" element={<Home />} />
+    <Routes>
+      <Route element={<Layout />}>
+        <Route
+          path="/profile"
+          element={
+            <RequireAuth>
+              <ProfilePage />
+            </RequireAuth>
+          }
+        />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/articles" element={<HomePage />} />
         <Route path="/articles/:slug" element={<Article />} />
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
-      </Routes>
-    </>
+        <Route
+          path="/settings"
+          element={
+            <RequireAuth>
+              <SettingsPage />
+            </RequireAuth>
+          }
+        />
+      </Route>
+    </Routes>
   );
 }
+
 export default App;
